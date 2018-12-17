@@ -34,17 +34,17 @@ function fizzBuzz(array) {
 const assert = require('chai').assert;
 
 describe('fizzBuzz', function() {
-    it('Should return Fizz every third number', function() {
+    it('Should return Fizz for numbers which are multiple of 3', function() {
         assert.includeOrderedMembers(fizzBuzz([1,2,3,4,5,6,7,8,9,10]), [1,2,"Fizz",4], 'include ordered members')
         assert.includeOrderedMembers(fizzBuzz([1,2,3,4,5,6,7,8,9,10]), [4,"Buzz","Fizz"], 'include ordered members')
         assert.includeOrderedMembers(fizzBuzz([11,12,13,14,15,16,17,18,19,20]), [11, "Fizz"], 'include ordered members')
         assert.includeOrderedMembers(fizzBuzz([22,87,71,38]), [22, "Fizz"], 'include ordered members')
     })
-    it('Should return Buzz every fifth number', function() {
+    it('Should return Buzz for numbers which are multiple of 5', function() {
         assert.includeOrderedMembers(fizzBuzz([18,19,20,21,22]), [19,20,21], 'include ordered members')
         assert.deepEqual(fizzBuzz([43,56,22,40,28]), [22,"Buzz",28], 'include ordered members')
     })
-    it('Should return FizzBuzz for numbers which are multiples of three and five', function () {
+    it('Should return FizzBuzz for numbers which are multiples of 3 and 5', function () {
         assert.includeOrderedMembers(fizzBuzz([45,94,1]), [44,17,38], 'include ordered members')
         assert.includeOrderedMembers(fizzBuzz("I need code"))
     })
