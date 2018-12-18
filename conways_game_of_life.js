@@ -9,14 +9,83 @@
 //     If a dead cell has exactly 3 neighbours, it comes to life.
 // Good luck and have fun!
 
-function conwaysGameOfLife(twoDimensionalArray) {
-    // Do something
+function checkNeighbours(game, row, column) {
+    let a = 0,
+        b = 0,
+        c = 0,
+        d = 0,
+        e = 0,
+        f = 0,
+        g = 0,
+        h = 0
+    if (game[row - 1] != undefined) {
+        if (game[row - 1][column - 1] != undefined) {
+            a = game[row - 1][column - 1]
+        }
+        if (game[row - 1][column + 1] != undefined) {
+            c = game[row - 1][column + 1]
+        }
+        b = game[row - 1][column]
+    }
+    if (game[row + 1] != undefined) {
+        if (game[row + 1][column - 1] != undefined) {
+            d = game[row + 1][column - 1]
+        }
+        if (game[row + 1][column + 1] != undefined) {
+            f = game[row + 1][column + 1]
+        }
+        e = game[row + 1][column]
+    }
+    if (game[row][column + 1] != undefined) {
+        g = game[row][column + 1]
+    }
+    if (game[row][column - 1] != undefined) {
+        h = game[row][column - 1]
+    }
+    return a + b + c + d + e + f + g + h
+}
+
+function conwaysGameOfLife(game) {
+    let nextGen = []
+    for (let row = 0; row < game.length; row++) {
+        let nextRow = []
+        for (let column = 0; column < game[row].length; column++) {
+            let neighbours = checkNeighbours(game, row, column)
+            if (game[row][column] === 0) {
+                if (neighbours === 3) {
+                    nextRow.push(1)
+                } else {
+                    nextRow.push(0)
+                }
+            } else {
+                if (neighbours < 2 || neighbours > 3) {
+                    nextRow.push(0)
+                } else {
+                    nextRow.push(1)
+                }
+            }
+        }
+        nextGen.push(nextRow)
+    }
+    return nextGen
+}
+
+function* nthGen(int, game) {
+    let nextGen = game
+    let currentGen
+    for (let gen = 0; gen < int; gen++) {
+        currentGen = nextGen
+        nextGen = conwaysGameOfLife(currentGen)
+        nextGen.map(row => console.log(row))
+        console.log('Gen', gen)
+        yield nextGen
+    }
 }
 
 let assert = require('assert')
 
 describe("Conway's Game Of Life", function () {
-    context("Testing a Finite Game", function () {
+    context("Testing One Generation", function () {
         it("Should correctly return the next generation of the game", function () {
             let game = [
                 [0, 0, 0, 0, 0],
@@ -33,5 +102,59 @@ describe("Conway's Game Of Life", function () {
                 [0, 0, 0, 1, 0]
             ])
         })
+    })
+    context("BEAST MODE!!!! Testing n generations", function () {
+        let game = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 0],
+            [0, 1, 1, 0, 0],
+            [0, 0, 1, 0, 1],
+            [0, 0, 1, 0, 0]
+        ]
+        let answers = [
+            [
+                [0, 0, 0, 0, 0],
+                [0, 1, 1, 1, 0],
+                [0, 1, 0, 0, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0]
+            ],
+            [
+                [0, 0, 1, 0, 0],
+                [0, 1, 1, 0, 0],
+                [0, 1, 0, 1, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0]
+            ],
+            [
+                [0, 1, 1, 0, 0],
+                [0, 1, 0, 1, 0],
+                [0, 1, 0, 1, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0]
+            ],
+            [
+                [0, 1, 1, 0, 0],
+                [1, 1, 0, 1, 0],
+                [0, 1, 0, 1, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0]
+            ],
+            [
+                [1, 1, 1, 0, 0],
+                [1, 0, 0, 1, 0],
+                [1, 1, 0, 1, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0]
+            ]
+
+        ]
+        let n = 0
+        for (let gen of nthGen(5, game)) {
+            it("Should correctly return the next generation of the game", function () {
+                assert.deepEqual(gen, answers[n])
+                n += 1
+            })
+        }
     })
 })
