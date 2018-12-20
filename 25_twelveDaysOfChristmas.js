@@ -52,8 +52,8 @@ describe('Twelve days of Christmas challenge', function () {
         assert.include(twelveDaysOfChristmas(5), "Three French hens", "Should include three french hens")
         assert.include(twelveDaysOfChristmas(5), "And a partridge in a pear tree.\n", "Should include a partridge in a pear tree")
     })
-    it('If the nineth day is called, should return the nine gifts in the array', function () {
-        assert.include(twelveDaysOfChristmas(9), "nineth", "Should include ninth")
+    it('If the ninth day is called, should return the nine gifts in the array', function () {
+        assert.include(twelveDaysOfChristmas(9), "ninth", "Should include ninth")
         assert.include(twelveDaysOfChristmas(9), "Six geese a-laying", "Should include six geese a-laying")
         assert.include(twelveDaysOfChristmas(9), "Nine ladies dancing", "Should include nine ladies dancing")
     })
