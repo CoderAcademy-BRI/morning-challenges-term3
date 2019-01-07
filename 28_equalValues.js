@@ -14,8 +14,12 @@ Examples:
 */
 
 const equalValues = (value1, value2) => {
+
+
     // Your code below
 }
+
+
 
 const assert = require('assert')
 describe('equalValues tests', () => {
@@ -78,6 +82,6 @@ describe('equalValues tests', () => {
     //     assert.equal(equalValues({a:3,b:2},{b:2,a:3}), false)
     // })
     // it('Beast mode++: Should return true if one value is in JSON', () => {
-    //     assert.equal(equalValues({a:3,b:4},[{"a":"4","b":"4"}]), true)
+    //     assert.equal(equalValues({a:3,b:4},{"a":3,"b":4}), true)
     // })
 })
