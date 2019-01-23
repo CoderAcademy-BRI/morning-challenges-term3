@@ -1,5 +1,5 @@
 /*
-Remove Dupes TDD
+Remove Dupes
 
 This is a TDD challenge. Write the tests first.
 
